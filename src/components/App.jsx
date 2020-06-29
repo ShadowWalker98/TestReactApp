@@ -7,6 +7,7 @@ class App extends Component {
         super();
         this.state = {
             itemList: [],
+            displayMovies: false,
         };
     }
 
@@ -32,23 +33,39 @@ class App extends Component {
         
     }
     
+    handleClick = () => {
+        let newState = !this.state.displayMovies
+        this.setState({
+            displayMovies: newState
+        });
+    }
 
     render() {
+        
         //console.log(this.state.itemList);
-        return(
-            <div>
-                <h3> API test</h3>
-                {this.state.itemList.map((item,index) => (
-                    <div key={index} className="card" style={{width: 18 + "rem"}} >
-                        <div className="card-body">
-                            <h5 className="card-title">{item.name}</h5>
-                            <p className="card-text">{item.desc}</p>
+        if(this.state.displayMovies === true) {
+            return(
+                <div>
+                    
+                    {this.state.itemList.map((item,index) => (
+                        <div key={index} className="card" style={{width: 18 + "rem"}} >
+                            <div className="card-body">
+                                <h5 className="card-title">{item.name}</h5>
+                                <p className="card-text">{item.desc}</p>
+                            </div>
                         </div>
-                    </div>
-                ))}
-            </div>
-            
-        );
+                    ))}
+                </div>
+        
+            );
+        } else {
+            return(
+                <>
+                    <h3> API test</h3>
+                    <button type="button" className="btn btn-primary" onClick = {this.handleClick}>Load Movies</button>
+                </>
+            );
+        }
     }
 }
 
